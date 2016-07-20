@@ -1,27 +1,94 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
     <title>IAM</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
+    <link href='https://fonts.googleapis.com/css?family=Bitter' rel='stylesheet' type='text/css'>
+    <link href='https://fonts.googleapis.com/earlyaccess/notosanskr.css' rel='stylesheet' type='text/css'>
+    <style>
+        * {
+            font-family: 'Bitter', 'Noto Sans KR', serif;
+        }
+
+        ul {
+            list-style-type: none;
+            width: 90%
+        }
+
+        body {
+            margin: 0;
+            padding: 15px;
+            max-width: 960px;
+            background-color: #f0f0f0;
+            word-break: break-all;
+        }
+
+        .title {
+            display: inline-block;
+        }
+        .profile-image {
+            float: right;
+            width: 160px;
+            height: 160px;
+        }
+
+        @media all and (max-width: 400px) {
+            .profile-image {
+                width: 100px;
+                height: 100px;
+            }
+        }
+
+        .li-section {
+            font-weight: bold;
+            margin-top: 1.5em
+        }
+    </style>
 </head>
 <body>
-<h1>Junhui Lee</h1>
-<dl>
-    <dt>Email</dt>
-    <dd><a href="mailto:ohenwkgdj@gmail.com">ohenwkgdj@gmail.com</a></dd>
-    <dt>Web Sites</dt>
-    <dd><a href="https://github.com/makerj">Github</a>, <a href="http://makerj.tistory.com">Blog</a></dd>
-</dl>
-<h3>I Love Making Something Useful!</h3>
-<hr>
+<div class="wrap">
+    <h1 class="title">Junhui Lee</h1>
+    <img class="profile-image" src="https://avatars0.githubusercontent.com/u/5608983?v=3&s=460">
+    <dl>
+        <dt>Email</dt>
+        <dd><a href="mailto:ohenwkgdj@gmail.com">ohenwkgdj@gmail.com</a></dd>
+        <dt>Web Sites</dt>
+        <dd><a href="https://github.com/makerj">Github</a>, <a href="http://makerj.tistory.com">Blog</a></dd>
+    </dl>
+    <h3>I Love Making Something Useful!</h3>
+    <hr>
 
-<h2>Open Source Experience</h2>
-<ul id="repo-list">
-    <li>Now Loading...</li>
-</ul>
+    <h2>Interests</h2>
+    <ul>
+        <li>Efficient development process.</li>
+        <li>Free and open source software.</li>
+    </ul>
 
-<h2>Education</h2>
-<p>Computer Engineering, Myongji University, 2009-2016</p>
+    <h2>Skills</h2>
+    <ul>
+        <li class="li-section">Programming Languages</li>
+        <li>Java (expert), Python, C</li>
+        <li class="li-section">Back-end Technologies</li>
+        <li>Django, AWS, Docker, gevent, Firebase, Linux</li>
+        <li class="li-section">Databases or Cache Storages</li>
+        <li>Redis, PostgreSQL, SQLite</li>
+        <li class="li-section">Test Engineering</li>
+        <li>py.test, Travis CI</li>
+        <li class="li-section">Web Development</li>
+        <li>Requests, jQuery, HTML5/CSS3, Gunicorn</li>
+        <li class="li-section">Tools</li>
+        <li>Eclipse, Intelij, Pycharm, CLion, Webstorm, Git, VirtualBox</li>
+    </ul>
+
+    <h2>Open Source Experience</h2>
+    <ul id="repo-list">
+        <p>Now Loading...</p>
+    </ul>
+
+    <h2>Education</h2>
+    <p>Computer Engineering, Myongji University, 2009-2016</p>
+</div>
 <script src="https://code.jquery.com/jquery-1.12.4.min.js"
         integrity="sha256-ZosEbRLbNQzLpnKIkEdrPv7lOy9C27hHQ+Xp8a4MxAQ=" crossorigin="anonymous"></script>
 <script>
@@ -51,6 +118,14 @@
             }
         }.bind(this));
     };
+    function v(val, def) {
+        if (val == null || typeof val === 'undefined')
+            return def;
+        if (typeof val === 'object')
+            return Object.keys(val).length ? val : def;
+
+        return val || def;
+    }
 
     var $repoList = $('#repo-list');
     var repoList = null;
@@ -63,7 +138,9 @@
         $repoList.empty();
         repoList.forEach(function (item) {
             if (item.fork) return;
-            $repoList.append('<li><a href="{}"><h4>{}<h3></a><h5>{}</h5></li>'.format(item.url, item.name, item.description||''));
+            if (v(item.description, '').startsWith('_')) return;
+
+            $repoList.append('<li><a href="{}"><h4>{}<h3></a><h5>{}</h5></li>'.format(item.html_url, item.name, item.description || ''));
         });
     });
 </script>
