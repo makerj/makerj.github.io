@@ -1,9 +1,71 @@
-<html>
-  <head>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
     <title>IAM</title>
-  </head>
-  <body>
-    <h1>I AM MAKERJ</h1>
-    <script   src="https://code.jquery.com/jquery-1.12.4.min.js"   integrity="sha256-ZosEbRLbNQzLpnKIkEdrPv7lOy9C27hHQ+Xp8a4MxAQ="   crossorigin="anonymous"></script>
-  </body>
+</head>
+<body>
+<h1>Junhui Lee</h1>
+<dl>
+    <dt>Email</dt>
+    <dd><a href="mailto:ohenwkgdj@gmail.com">ohenwkgdj@gmail.com</a></dd>
+    <dt>Web Sites</dt>
+    <dd><a href="https://github.com/makerj">Github</a>, <a href="http://makerj.tistory.com">Blog</a></dd>
+</dl>
+<h3>I Love Making Something Useful!</h3>
+<hr>
+
+<h2>Open Source Experience</h2>
+<ul id="repo-list">
+    <li>Now Loading...</li>
+</ul>
+
+<h2>Education</h2>
+<p>Computer Engineering, Myongji University, 2009-2016</p>
+<script src="https://code.jquery.com/jquery-1.12.4.min.js"
+        integrity="sha256-ZosEbRLbNQzLpnKIkEdrPv7lOy9C27hHQ+Xp8a4MxAQ=" crossorigin="anonymous"></script>
+<script>
+    'use strict';
+    String.prototype.format = function () {
+        var args = arguments;
+        var unkeyed_index = 0;
+        return this.replace(/\{{1,2}(\w*)\}{1,2}/g, function (match, key) {
+            if (match.indexOf('{{') !== -1) { // {{dont-replace}}
+                return match.replace('{{', '{').replace('}}', '}');
+            }
+            if (key === '') { // {}
+                key = unkeyed_index;
+                unkeyed_index++
+            }
+            if (key == +key) { // {0}
+                return args[key] !== 'undefined'
+                        ? args[key]
+                        : match;
+            } else { // {named}
+                for (var i = 0; i < args.length; i++) {
+                    if (typeof args[i] === 'object' && typeof args[i][key] !== 'undefined') {
+                        return args[i][key];
+                    }
+                }
+                return match;
+            }
+        }.bind(this));
+    };
+
+    var $repoList = $('#repo-list');
+    var repoList = null;
+    $.ajax({
+        url: 'https://api.github.com/users/makerj/repos',
+        method: 'GET'
+    }).done(function (res) {
+        repoList = res;
+
+        $repoList.empty();
+        repoList.forEach(function (item) {
+            if (item.fork) return;
+            $repoList.append('<li><a href="{}"><h4>{}<h3></a><h5>{}</h5></li>'.format(item.url, item.name, item.description||''));
+        });
+    });
+</script>
+</body>
 </html>
