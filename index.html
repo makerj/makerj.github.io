@@ -85,6 +85,20 @@
     <ul id="repo-list">
         <p>Now Loading...</p>
     </ul>
+    
+    <h2>IP</h2>
+    <ul>
+        <li>
+            <a href="http://www.riss.kr/search/detail/DetailView.do?p_mat_type=1a0202e37d52c72d&control_no=214346e3d35005687f7a54760bb41745">
+                <h4>MDFS</h4>
+            </a>
+            <h5>Jun Hui Lee and Gwang Gook Kim. Mobile Distributed File System. 2014</h5>
+        </li>
+        <li>
+            <h4>Security Monitoring System for Mobile Device</h4>
+            <h5>M.H. Shin, J.H. Lee, J.S. Kim. SECURITY MONITORING SYSTEM FOR MOBILE DEVICE AND METHOD OF SECURITY MONITORING FOR MOBILE DEVICE USING IT. 10-2016-0006600. 2016</h5>
+        </li>
+    </ul>
 
     <h2>Education</h2>
     <p>Computer Engineering, Myongji University, 2009-2016</p>
@@ -140,7 +154,7 @@
             if (item.fork) return;
             if (v(item.description, '').startsWith('_')) return;
 
-            $repoList.append('<li><a href="{}"><h4>{}<h3></a><h5>{}</h5></li>'.format(item.html_url, item.name, item.description || ''));
+            $repoList.append('<li><a href="{}"><h4>{}</h4></a><h5>{}</h5></li>'.format(item.html_url, item.name, item.description || ''));
         });
     });
 </script>
