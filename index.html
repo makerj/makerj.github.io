@@ -108,7 +108,7 @@
     var $repoList = $('#repo-list');
     var repoList = null;
     $.ajax({
-        url: 'https://api.github.com/users/makerj/repos',
+        url: 'https://api.github.com/users/makerj/repos?sort=pushed',
         method: 'GET'
     }).done(function (res) {
         repoList = res;
